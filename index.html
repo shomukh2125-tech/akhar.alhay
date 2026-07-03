@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 0; background-color: #f5f0e6; display: flex; justify-content: center; align-items: center; min-height: 100vh; font-family: 'Tajawal', sans-serif; overflow: hidden; }
+        
+        .scene { width: 320px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .img-small { width: 120px !important; height: auto; margin: 5px 0; }
+        .img-main { width: 220px !important; height: auto; margin: 10px 0; }
+        .text-box { width: 280px; font-size: 1.2rem; color: #5d463b; font-weight: 600; text-align: center; line-height: 1.8; margin: 15px 0; }
+        .highlight { color: #8b4513; font-weight: bold; }
+        #start-btn { position: fixed; z-index: 100; padding: 20px 30px; background: #5d463b; color: #fff; border-radius: 30px; cursor: pointer; text-align: center; }
+    </style>
+</head>
+<body>
+
+<div id="start-btn">بعد طول انتظار.. الأبواب مفتوحة مستعدين؟</div>
+<div id="app" class="scene"></div>
+
+<audio id="bg-music" src="https://res.cloudinary.com/qibqf1cw/video/upload/v1783116290/IMG_4492_q3jlid.mp4" loop></audio>
+
+<script>
+    const app = document.getElementById('app');
+    const music = document.getElementById('bg-music');
+    const scenes = [
+        { html: '<img src="https://i.imgur.com/bA6T5gu.jpeg" class="img-main">' },
+        { html: '<img src="https://i.imgur.com/HlRC41W.jpeg" class="img-main">' },
+        { html: `
+            <img src="https://i.imgur.com/MGEw8Mg.png" class="img-small">
+            <div class="text-box">يقولون: من طول الغيبات جاب الغنايم.<br><span class="highlight">والغنيمة؟</span> مكان، ودّك تشاركه مع من تحب.</div>
+            <img src="https://i.imgur.com/ggDYU9v.png" class="img-small">` 
+        },
+        { html: `
+            <img src="https://i.imgur.com/9AuLP4b.jpeg" class="img-main">
+            <div class="text-box">كل الطرق تؤدي إلى.. <span class="highlight">آخر الحَيّ.</span><br>وُجد هذا المكان ليُباغتك كوجهةٍ لم تكن في الحُسبان، لكنك ستجد نفسك تقصدها دائمًا..<br>ننتظركم في 10-07-2026</div>
+            <img src="https://i.imgur.com/lDAdep3.jpeg" class="img-main">` 
+        },
+        { html: '<img src="https://i.imgur.com/bA6T5gu.jpeg" class="img-main">' }
+    ];
+
+    let i = 0;
+    function play() {
+        if(i >= scenes.length) return;
+        app.innerHTML = scenes[i].html;
+        setTimeout(() => { i++; play(); }, (i === 2 || i === 3) ? 10000 : 4000);
+    }
+
+    document.getElementById('start-btn').onclick = () => {
+        document.getElementById('start-btn').style.display = 'none';
+        music.play(); // تشغيل الصوت هنا
+        play();
+    };
+</script>
+</body>
+</html>
